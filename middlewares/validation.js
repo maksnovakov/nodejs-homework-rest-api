@@ -1,12 +1,13 @@
-const validation = (shema) => {
-  return (req, res, next) => {
-    const { error } = shema.validate(req.body);
-    if (error) {
-      error.status = 400;
-      next(error);
-    }
-    next();
-  };
+const { validate } = require("uuid");
+const { ServiceError } = require("../helpers");
+
+const validation = (schema) => (req, res, next) => {
+  const { error } = schema.validate(req.body);
+  if (error) {
+    next(new ServiceError(400, error.message));
+    return;
+  }
+  next();
 };
 
 module.exports = validation;
