@@ -5,6 +5,7 @@ const { ServiceError } = require("../../helpers");
 const { User } = require("../../models/user");
 
 const { SECRET_KEY } = process.env;
+
 const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });

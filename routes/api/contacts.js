@@ -18,12 +18,13 @@ const { schemas } = require("../../models/contacts");
 
 router.get("/", authorization, controllerWrapper(getAll));
 
-router.get("/:id", validationId, controllerWrapper(getById));
+router.get("/:id", authorization, validationId, controllerWrapper(getById));
 
 router.post("/", authorization, controllerWrapper(add));
 
 router.put(
   "/:id",
+  authorization,
   validationId,
   validation(schemas.add),
   controllerWrapper(updateById)
@@ -31,11 +32,17 @@ router.put(
 
 router.patch(
   "/:id/favorite",
+  authorization,
   validationId,
   validation(schemas.updateFavorite),
   controllerWrapper(updateFavorite)
 );
 
-router.delete("/:id", validationId, controllerWrapper(deleteById));
+router.delete(
+  "/:id",
+  authorization,
+  validationId,
+  controllerWrapper(deleteById)
+);
 
 module.exports = router;
