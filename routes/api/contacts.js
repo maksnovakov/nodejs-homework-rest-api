@@ -7,16 +7,20 @@ const {
   updateById,
   updateFavorite,
   deleteById,
-} = require("../../controllers/contacts");
+} = require("../../controllers");
 const { controllerWrapper } = require("../../helpers");
-const { validation, validationId } = require("../../middlewares");
+const {
+  authorization,
+  validation,
+  validationId,
+} = require("../../middlewares");
 const { schemas } = require("../../models/contacts");
 
-router.get("/", controllerWrapper(getAll));
+router.get("/", authorization, controllerWrapper(getAll));
 
 router.get("/:id", validationId, controllerWrapper(getById));
 
-router.post("/", controllerWrapper(add));
+router.post("/", authorization, controllerWrapper(add));
 
 router.put(
   "/:id",

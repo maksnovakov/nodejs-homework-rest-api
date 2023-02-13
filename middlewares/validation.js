@@ -1,4 +1,3 @@
-const { validate } = require("uuid");
 const { ServiceError } = require("../helpers");
 
 const validation = (schema) => (req, res, next) => {
