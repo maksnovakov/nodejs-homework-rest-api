@@ -6,6 +6,7 @@ const {
   reqisterJoiSchema,
   subscriptionJoiSchema,
 } = require("./validationJoiUser");
+const upload = require("./upload");
 
 module.exports = {
   validation,
@@ -15,4 +16,5 @@ module.exports = {
   updateFavoriteSchema,
   reqisterJoiSchema,
   subscriptionJoiSchema,
+  upload,
 };
