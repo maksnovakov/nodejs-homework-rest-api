@@ -1,6 +1,7 @@
 const path = require("path");
 const fs = require("fs/promises");
 const { User } = require("../../models / user");
+const { PORT } = process.env;
 
 const avatarDir = path.join(__dirname, "../../", "public", "avatars");
 
@@ -13,7 +14,7 @@ const avatars = async (req, res) => {
 
   await fs.rename(tempUpload, resultUpload);
 
-  const avatarURL = path.join(`/avatars/${fileName}`);
+  const avatarURL = `http://localhost:${PORT}/avatars/${fileName}`;
   await User.findByIdAndUpdate(id, { avatarURL });
   res.json({
     avatarURL,
