@@ -7,12 +7,28 @@ const { controllerWrapper } = require("../../helpers");
 const { schemas } = require("../../models/user");
 
 const {
-  users: { signup, login, getActual, logout, updateSigning, avatars },
+  users: {
+    signup,
+    login,
+    getActual,
+    logout,
+    updateSigning,
+    avatars,
+    verificationToken,
+  },
 } = require("../../controllers");
 
 const router = express.Router();
 
 router.post("/signup", validation(schemas.register), controllerWrapper(signup));
+
+router.get("/verify/:verificationToken", controllerWrapper(verificationToken));
+
+router.post(
+  "/verify",
+  validation(schemas.verifyEmail),
+  controllerWrapper(login)
+);
 
 router.post("./login", validation(schemas.login), controllerWrapper(login));
 
@@ -30,7 +46,7 @@ router.patch(
 router.patch(
   "/avatars",
   authorization,
-  upload.singlee("avatar"),
+  upload.single("avatar"),
   controllerWrapper(avatars)
 );
 
